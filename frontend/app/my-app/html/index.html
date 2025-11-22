@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insights Dashboard – HTML & CSS Only</title>
+    <link rel="stylesheet" href="../styles/dashboard-styles.css"/>
+    <script src="app.js" defer></script>
+  </head>
+  <body class="dashboard-body">
+    <div class="dashboard-shell">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Module 5 / Member 5</p>
+          <h1>AI Experience Pulse</h1>
+          <p class="lede">
+            Centralized feedback intelligence across channels, powered by AI insights for faster decision
+            cycles and confident go-to-market actions.
+          </p>
+        </div>
+        <a href="login.html">
+            <button class="export-button">login </button>
+        </a>
+      </header>
+      <section class="stat-grid">
+        <article class="stat-card">
+          <p class="label">Positive Mentions</p>
+          <p class="value">1,248</p>
+          <p class="delta positive">+12% MoM</p>
+        </article>
+        <article class="stat-card">
+          <p class="label">Customer NPS</p>
+          <p class="value">62</p>
+          <p class="delta positive">+5 pts</p>
+        </article>
+        <article class="stat-card">
+          <p class="label">Avg. Response Time</p>
+          <p class="value">1.8h</p>
+          <p class="delta negative">-18%</p>
+        </article>
+        <article class="stat-card">
+          <p class="label">Escalations</p>
+          <p class="value">32</p>
+          <p class="delta negative">-9%</p>
+        </article>
+      </section>
+
+      <section class="chart-grid">
+        <article class="chart-card">
+          <header>
+            <div>
+              <h3>Sentiment Split</h3>
+              <p>Trailing 30 days</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="sentiment-pie">
+            <div class="pie"></div>
+            <ul class="legend">
+              <li><span class="swatch positive"></span> Positive 62%</li>
+              <li><span class="swatch neutral"></span> Neutral 24%</li>
+              <li><span class="swatch negative"></span> Negative 14%</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chart-card large">
+          <header>
+            <div>
+              <h3>Monthly Trendline</h3>
+              <p>Sentiment momentum vs baseline</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="trend-chart">
+            <div class="grid"></div>
+            <svg viewBox="0 0 380 180" preserveAspectRatio="none">
+              <polyline
+                points="0,120 54,140 108,90 162,70 216,60 270,80 324,55 380,35"
+                fill="none"
+                stroke="#38bdf8"
+                stroke-width="6"
+              />
+              <polyline
+                points="0,120 54,140 108,90 162,70 216,60 270,80 324,55 380,35"
+                fill="rgba(56,189,248,0.15)"
+                stroke="none"
+              />
+            </svg>
+          </div>
+          <div class="trend-labels">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span
+            ><span>Jul</span><span>Aug</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="split-grid">
+        <article class="chart-card">
+          <header>
+            <div>
+              <h3>Keyword Cloud</h3>
+              <p>Weighted by mention volume</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="keyword-cloud">
+            <span data-weight="4">#automation</span>
+            <span data-weight="5">#support</span>
+            <span data-weight="2">#pricing</span>
+            <span data-weight="3">#UX</span>
+            <span data-weight="4">#performance</span>
+            <span data-weight="3">#integration</span>
+            <span data-weight="2">#security</span>
+            <span data-weight="4">#reliability</span>
+            <span data-weight="5">#AI helper</span>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <header>
+            <div>
+              <h3>AI Insights</h3>
+              <p>Generated 5 mins ago</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="insights-list">
+            <div class="insight-card">
+              <p class="pill">AI Insight</p>
+              <h4>Churn Risk</h4>
+              <p>
+                High-value accounts in EMEA mention onboarding friction. Trigger proactive outreach.
+              </p>
+            </div>
+            <div class="insight-card">
+              <p class="pill">AI Insight</p>
+              <h4>Upsell Signal</h4>
+              <p>Customers praising automation are 2.3x more likely to upgrade within 30 days.</p>
+            </div>
+            <div class="insight-card">
+              <p class="pill">AI Insight</p>
+              <h4>Content Opportunity</h4>
+              <p>Top questions cluster around integrations. Publish API best-practices guide.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="split-grid">
+        <article class="chart-card">
+          <header>
+            <div>
+              <h3>Strengths vs Weaknesses</h3>
+              <p>Narrative generated from 1,742 mentions</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="strength-weakness-grid">
+            <div class="strengths">
+              <p class="title">Strengths</p>
+              <ul>
+                <li>Automation reliability and low error rate</li>
+                <li>Fast and human-like AI assistant responses</li>
+                <li>Seamless integrations with CRM platforms</li>
+              </ul>
+            </div>
+            <div class="weaknesses">
+              <p class="title">Weaknesses</p>
+              <ul>
+                <li>Pricing perceived as premium against SMB competitors</li>
+                <li>Learning curve for power-user workflows</li>
+                <li>Occasional latency in APAC data center</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="chart-card">
+          <header>
+            <div>
+              <h3>Competitor Comparison</h3>
+              <p>Benchmark vs top 3 rivals</p>
+            </div>
+            <span class="dot"></span>
+          </header>
+          <div class="competitor-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Competitor</th>
+                  <th>Sentiment</th>
+                  <th>Differentiator</th>
+                  <th>Risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AuroraCX</td>
+                  <td>
+                    <div class="progress">
+                      <span style="width: 68%"></span>
+                      <em>68</em>
+                    </div>
+                  </td>
+                  <td>Industry-specific playbooks</td>
+                  <td>Closing gap in automation</td>
+                </tr>
+                <tr>
+                  <td>NimbleDesk</td>
+                  <td>
+                    <div class="progress">
+                      <span style="width: 54%"></span>
+                      <em>54</em>
+                    </div>
+                  </td>
+                  <td>Aggressive SMB pricing</td>
+                  <td>Limited enterprise features</td>
+                </tr>
+                <tr>
+                  <td>PulseWave</td>
+                  <td>
+                    <div class="progress">
+                      <span style="width: 61%"></span>
+                      <em>61</em>
+                    </div>
+                  </td>
+                  <td>Predictive incident scoring</td>
+                  <td>Weak integration ecosystem</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </div>
+  </body>
+</html>
+
