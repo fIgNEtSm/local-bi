@@ -194,48 +194,57 @@
 
 
 
-/*login-registration - css*/
+/*login-registration - handlers*/
 
+// Wait for DOM to be ready before accessing elements
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initForms);
+} else {
+  initForms();
+}
 
-      document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Here you would typically send the data to your backend
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        // Simulate login (replace with actual API call)
-        if (email && password) {
-          alert('Login successful! Redirecting to dashboard...');
-          setTimeout(() => {
-            // Redirect to your dashboard
-            window.location.href = 'my-app/index.html';
-          }, 1500);
-        }
-      });
-   
-
-     
-  
-      document.getElementById('registerForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-        if (password !== confirmPassword) {
-          alert('Passwords do not match!');
-          return;
-        }
-        
-        // Here you would typically send the data to your backend
-        alert('Registration successful! Redirecting to login...');
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1500);
-      });
- 
-   
-
-
+function initForms() {
+  // Login form handler
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
       
+      // Here you would typically send the data to your backend
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simulate login (replace with actual API call)
+      if (email && password) {
+        alert('Login successful! Redirecting to dashboard...');
+        setTimeout(() => {
+          // Redirect to dashboard (same directory as login.html)
+          window.location.href = 'index.html';
+        }, 1500);
+      }
+    });
+  }
+
+  // Registration form handler
+  const registerForm = document.getElementById('registerForm');
+  if (registerForm) {
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+      
+      // Here you would typically send the data to your backend
+      alert('Registration successful! Redirecting to login...');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    });
+  }
+}
+
