@@ -36,6 +36,56 @@ body {
   line-height: 1.5;
 }
 
+body.theme-light {
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent-primary: #0284c7;
+  --accent-hover: #0369a1;
+  --input-bg: rgba(248, 250, 252, 0.9);
+  --shadow-sm: 0 6px 16px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 18px 36px rgba(15, 23, 42, 0.1);
+  --shadow-lg: 0 35px 65px rgba(15, 23, 42, 0.12);
+}
+
+body.theme-light .auth-card {
+  backdrop-filter: blur(14px);
+}
+
+body.theme-light .social-button {
+  background: #ffffff;
+}
+
+body.theme-light .social-button:hover {
+  background: #f8fafc;
+}
+
+body.theme-light .form-group input[type='text'],
+body.theme-light .form-group input[type='email'],
+body.theme-light .form-group input[type='password'] {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+body.theme-light .form-group input[type='text']:focus,
+body.theme-light .form-group input[type='email']:focus,
+body.theme-light .form-group input[type='password']:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
+  background: #fff;
+}
+
+body.theme-light .form-group input::placeholder {
+  color: #94a3b8;
+}
+
 .auth-container {
   width: 100%;
   max-width: 420px;

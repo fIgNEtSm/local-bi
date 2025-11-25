@@ -48,6 +48,87 @@
   const tooltip = createTooltip();
 
   /* -----------------------------
+     Theme management
+     ----------------------------- */
+  const themeController = window.__themeController || null;
+  const THEME_KEY = themeController?.key || 'localbiz-theme';
+  const DEFAULT_THEME = themeController?.defaultTheme || 'dark';
+
+  const getStoredTheme = () => {
+    if (themeController?.getTheme) {
+      return themeController.getTheme();
+    }
+    try {
+      return localStorage.getItem(THEME_KEY) || DEFAULT_THEME;
+    } catch (_) {
+      return DEFAULT_THEME;
+    }
+  };
+
+  function applyTheme(theme) {
+    if (themeController?.applyTheme) {
+      themeController.applyTheme(theme);
+      return;
+    }
+
+    const isLight = theme === 'light';
+    if (document.documentElement) {
+      document.documentElement.classList.toggle('theme-light', isLight);
+    }
+    if (document.body) {
+      document.body.classList.toggle('theme-light', isLight);
+    }
+  }
+
+  function setTheme(theme) {
+    if (themeController?.persistTheme) {
+      themeController.persistTheme(theme);
+    } else {
+      try {
+        localStorage.setItem(THEME_KEY, theme);
+      } catch (_) {
+        // ignore storage errors
+      }
+      applyTheme(theme);
+    }
+    updateThemeControls(theme);
+  }
+
+  function updateThemeControls(theme) {
+    const toggle = document.getElementById('themeToggle');
+    const label = document.getElementById('themeToggleLabel');
+    if (toggle) {
+      toggle.checked = theme === 'light';
+    }
+    if (label) {
+      label.textContent = theme === 'light' ? 'Light' : 'Dark';
+    }
+  }
+
+  function initTheme() {
+    const stored = getStoredTheme();
+    const initialTheme = stored === 'light' ? 'light' : 'dark';
+    applyTheme(initialTheme);
+    updateThemeControls(initialTheme);
+
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) {
+      toggle.addEventListener('change', (event) => {
+        const nextTheme = event.target.checked ? 'light' : 'dark';
+        setTheme(nextTheme);
+      });
+    }
+
+    // Listen for storage changes (cross-tab sync)
+    window.addEventListener('storage', (event) => {
+      if (event.key !== THEME_KEY) return;
+      const incomingTheme = event.newValue || DEFAULT_THEME;
+      applyTheme(incomingTheme);
+      updateThemeControls(incomingTheme);
+    });
+  }
+
+  /* -----------------------------
      Sentiment (pie + legend) interactions
      ----------------------------- */
   function initSentiment() {
@@ -176,6 +257,7 @@
      Init
      ----------------------------- */
   function init() {
+    initTheme();
     initSentiment();
     initStatCards();
     initTrendChart();
