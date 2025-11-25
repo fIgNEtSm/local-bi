@@ -1,11 +1,16 @@
 from pydantic import BaseModel
-from typing import List
+from typing import Optional, List
+from datetime import datetime
 
 class ReviewItem(BaseModel):
-    rating: float
+    business_id : str
+    reviewer_name: Optional[str] = None
+    rating: int
     text: str
-    date: str
+    platform: str           
+    review_date: datetime   
 
 class ReviewBatch(BaseModel):
-    business_id: int
+    id: str
     reviews: List[ReviewItem]
+    created_at: datetime

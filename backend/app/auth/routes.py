@@ -5,15 +5,16 @@ from app.auth.jwt_handler import create_token
 
 router = APIRouter(tags=["Auth"])
 
-fake_users_db = {}
+users_db = {}
 
 @router.post("/register")
 def register(data: RegisterIn):
-    if data.email in fake_users_db:
+    if data.email in users_db:
         raise HTTPException(status_code=400, detail="Email already exists")
 
     hashed_pw = Hash.encrypt(data.password)
-    fake_users_db[data.email] = {
+    
+    users_db[data.email] = {
         "name": data.name,
         "email": data.email,
         "password": hashed_pw
@@ -25,7 +26,7 @@ def register(data: RegisterIn):
 
 @router.post("/login")
 def login(data: LoginIn):
-    user = fake_users_db.get(data.email)
+    user = users_db.get(data.email)
     if not user:
         raise HTTPException(404, "User not found")
 
