@@ -3,17 +3,17 @@
 # ----------------------------------------------------
 
 from sqlalchemy import (
-    Column, String, Integer, Text, TIMESTAMP, Float,
+    Column, String, Integer, Text, TIMESTAMP, Float, JSON,
     ForeignKey, create_engine, func
 )
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.dialects.postgresql import UUID, JSON
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 import uuid
 
 # ----------------------------------------------------
 # DATABASE SETUP
 # ----------------------------------------------------
-DATABASE_URL = "postgresql://username:password@localhost:5432/yourdb"
+DATABASE_URL = "sqlite:///databse.db"
 
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
@@ -67,7 +67,7 @@ class TrendLog(Base):
     week = Column(Integer, nullable=True)
     month = Column(Integer, nullable=True)
     sentiment_score = Column(Float, nullable=True)
-    topic_trends = Column(JSONB, nullable=True)
+    topic_trends = Column(JSON, nullable=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
 
@@ -85,10 +85,10 @@ class AIResult(Base):
     sentiment_neg = Column(Integer, nullable=True)
     sentiment_neu = Column(Integer, nullable=True)
 
-    top_topics = Column(JSONB, nullable=True)
-    keywords = Column(JSONB, nullable=True)
-    top_complaints = Column(JSONB, nullable=True)
-    top_praises = Column(JSONB, nullable=True)
+    top_topics = Column(JSON, nullable=True)
+    keywords = Column(JSON, nullable=True)
+    top_complaints = Column(JSON, nullable=True)
+    top_praises = Column(JSON, nullable=True)
 
     ai_insights = Column(Text, nullable=True)
     updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
@@ -229,3 +229,5 @@ def get_ai_results(db, business_id):
 # ----------------------------------------------------
 def init_db():
     Base.metadata.create_all(engine)
+
+
