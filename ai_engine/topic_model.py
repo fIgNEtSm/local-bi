@@ -1,19 +1,45 @@
-from transformers import pipeline
+import json
+from keyword_extractor import split_into_opinions
+from sentiment_model import extract_sentiment
+from keybert import KeyBERT
 
-classifier = pipeline("zero-shot-classification",
-                      model="facebook/bart-large-mnli")
 
-labels = ["food", "service", "ambience", "pricing", "staff", "delivery"] # topics
+with open("topic_map.json", "r") as file:
+    TOPIC_MAP = json.load(file)
 
-def topic_counts(reviews: list[str], labels: list[str]=labels):
-    counts = {label: 0 for label in labels} # dictionary of all the topics/labels with 0 initial value
+# ugh I made a new function cause of keyphrase_ngram_range being (1, 1) instead of using the one in keyword_extractor.py
+kw_model = KeyBERT(model="all-mpnet-base-v2")
 
-    
-    for review in reviews:
-        result = classifier(review, labels)
-        top_label = result["labels"][0] # Taking the highest (most relevent) topic for each review
-        counts[top_label] += 1 # adding it to the count dictionary
+def extract_keywords(review: str):
+    keywords = kw_model.extract_keywords(
+        review,
+        keyphrase_ngram_range=(1, 1),
+        stop_words="english",
+        top_n=5
+    )
+    return keywords[0][0] if keywords else None
 
-    # returning a json/dict of topics with their counts
-    return counts
+def map_topic(word):
+    for topic, keywords in TOPIC_MAP.items():
+        if word in keywords:
+            return topic
+    return None
 
+def extract_topics(review):
+    result = {}
+
+    opinions = split_into_opinions(review)
+
+    for op in opinions:
+        keyword = extract_keywords(op)
+        sentiment = extract_sentiment(op)
+
+        if keyword is None:
+            continue
+
+        topic = map_topic(keyword)
+
+        if topic:
+            result[topic] = sentiment
+
+    return result

@@ -1,0 +1,98 @@
+{
+  "food": [
+    "food", "taste", "tasty", "dish", "dishes", "meal", "flavor", "spicy",
+    "sweet", "salty", "portion", "quality", "fresh", "stale", "burnt",
+    "undercooked", "overcooked", "cold food", "hot food"
+  ],
+
+  "service": [
+    "service", "slow", "delay", "late service", "quick service",
+    "fast service", "response", "waiting", "wait time", "queue", "order time"
+  ],
+
+  "staff": [
+    "staff", "waiter", "waitress", "employee", "manager", "chef",
+    "rude", "polite", "friendly", "attitude", "behavior", "support",
+    "helpful", "unprofessional"
+  ],
+
+  "ambience": [
+    "ambience", "atmosphere", "environment", "vibe", "interior", "lighting",
+    "seating", "music", "noise", "crowded", "peaceful", "cozy"
+  ],
+
+  "pricing": [
+    "price", "cost", "pricing", "expensive", "cheap", "overpriced",
+    "affordable", "value", "worth", "money", "bill", "charges", "tax"
+  ],
+
+  "delivery": [
+    "delivery", "late delivery", "early delivery", "shipment",
+    "shipping", "courier", "arrival", "dispatch", "tracking"
+  ],
+
+  "packaging": [
+    "packaging", "packed", "box", "container", "leak", "spilled",
+    "damaged", "sealed", "cover", "wrapping"
+  ],
+
+  "cleanliness": [
+    "clean", "dirty", "hygiene", "sanitation", "washroom", "toilet",
+    "smell", "odor", "sticky", "messy", "neat"
+  ],
+
+  "app_experience": [
+    "app", "website", "ui", "interface", "bug", "crash", "slow app",
+    "payment error", "login issue", "navigation", "lag"
+  ],
+
+  "payment": [
+    "payment", "upi", "card", "cash", "refund", "failed payment",
+    "charged twice", "transaction", "billing issue"
+  ],
+
+  "offers": [
+    "offer", "discount", "coupon", "cashback", "deal", "promo",
+    "voucher", "code", "sale"
+  ],
+
+  "refunds": [
+    "refund", "return", "replacement", "cancel", "cancellation",
+    "money back"
+  ],
+
+  "customer_support": [
+    "support", "helpline", "customer care", "call", "complaint",
+    "ticket", "resolution", "response team"
+  ],
+
+  "waiting_time": [
+    "waiting", "waited", "wait time", "delay", "long wait",
+    "queue", "standing"
+  ],
+
+  "comfort": [
+    "seat", "seating", "chair", "table", "comfortable", "uncomfortable",
+    "leg space", "crowded seating"
+  ],
+
+  "safety": [
+    "safety", "secure", "security", "guard", "theft", "safe",
+    "covid", "mask", "sanitizer"
+  ],
+
+  "location": [
+    "location", "distance", "nearby", "far", "parking", "route",
+    "accessibility", "traffic"
+  ],
+
+  "parking": [
+    "parking", "car park", "bike parking", "space", "no parking",
+    "valet"
+  ],
+
+  "brand_trust": [
+    "brand", "trust", "reliable", "fake", "duplicate",
+    "original", "authentic"
+  ]
+}

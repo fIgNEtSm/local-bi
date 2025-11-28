@@ -4,3 +4,5 @@ __pycache__/
 .idea
 /ai_engine/pipeline.ipynb
 /ai_engine/dummy_reviews.csv
+ai_engine/__pycache__
+ai_engine/trends.csv
