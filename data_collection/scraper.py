@@ -1,86 +1,166 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-import time, random
+from selenium.webdriver.firefox.options import Options
+import time
+import random
+import datetime
+import re
 
-# Human-like random sleep
-def human_sleep(a=1.0, b=2.0):
+# --------------------------
+# Helpers
+# --------------------------
+
+def wait(a=1.0, b=2.0):
     time.sleep(random.uniform(a, b))
 
-# Detect correct scroll container
-def get_scroll_container(driver):
-    selectors = [
-        'div[aria-label*="reviews"]',
-        'div.m6QErb',
-        'div.MyEned'
-    ]
-    for sel in selectors:
-        try:
-            el = driver.find_element(By.CSS_SELECTOR, sel)
-            print("Using scroll container:", sel)
-            return el
-        except:
-            continue
-    raise Exception("No valid scroll container found")
+def convert_relative_date(raw):
+    if not raw:
+        return None
+    raw = raw.lower()
+    today = datetime.date.today()
 
-def scrape_google_reviews(url, max_scrolls=50):
-    options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
-    options.add_argument("--disable-blink-features=AutomationControlled")
+    try:
+        match = re.search(r'\d+', raw)
+        if match:
+            num = int(match.group())
+        else:
+            num = 0
+    except:
+        return None
+
+    if "minutes" in raw:
+        return today
+    if "hours" in raw:
+        return today
+    if "day" in raw:
+        return today - datetime.timedelta(days=num)
+    if "week" in raw:
+        return today - datetime.timedelta(weeks=num)
+    if "month" in raw:
+        return today - datetime.timedelta(days=num * 30)
+    if "year" in raw:
+        return today - datetime.timedelta(days=num * 365)
     
-    driver = webdriver.Chrome(options=options)
+    return None
+
+
+# --------------------------
+# Main Scraper
+# --------------------------
+
+def scrape_google_reviews(url, max_scrolls=2):
+
+    opts = Options()
+    opts.add_argument("--headless")
+    driver = webdriver.Firefox(options=opts)
+
     driver.get(url)
-    human_sleep(3,4)
+    wait(3, 4)
 
-    scroll_div = get_scroll_container(driver)
-    actions = ActionChains(driver)
-    actions.move_to_element(scroll_div).perform()
-    human_sleep(1,2)
+    # ----------------------------------
+    # 1. CLICK SORT BUTTON
+    # ----------------------------------
+    try:
+        print("Clicking SORT button...")
+        sort_btn = driver.find_element(By.CSS_SELECTOR, "div.TrU0dc:nth-child(2) > button:nth-child(1)")
+        sort_btn.click()
+        wait()
+    except Exception as e:
+        print("❌ Failed to open sort menu:", e)
 
-    # Scroll loop to load more reviews
-    last_height = -1
-    for i in range(max_scrolls):
-        driver.execute_script("arguments[0].scrollBy(0, 400);", scroll_div)
-        human_sleep(0.8, 1.5)
+    # ----------------------------------
+    # 2. CLICK NEWEST
+    # ----------------------------------
+    try:
+        print("Selecting NEWEST...")
+        newest = driver.find_element(By.CSS_SELECTOR, "div.fxNQSd:nth-child(2)")
+        newest.click()
+        wait()
+        print("✔ NEWEST selected")
+    except Exception as e:
+        print("❌ Failed to click NEWEST:", e)
 
-        new_height = driver.execute_script("return arguments[0].scrollTop;", scroll_div)
-        if new_height == last_height:
-            print("Reached bottom or no more new reviews.")
+    # ----------------------------------
+    # 3. GET SCROLL CONTAINER
+    # ----------------------------------
+    scroll_box = driver.find_element(By.CSS_SELECTOR, ".DxyBCb")
+    time.sleep(5)
+
+    # ----------------------------------
+    # 4. SCROLL REVIEW PANEL
+    # ----------------------------------
+    print("Scrolling reviews...")
+    old_count = 0
+    for _ in range(max_scrolls):
+        driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight;", scroll_box)
+        time.sleep(5)
+
+        new_count = len(driver.find_elements(By.CSS_SELECTOR, "div.jftiEf"))
+        if new_count == old_count:
+            print("No more new reviews. Done.")
             break
-        last_height = new_height
 
-    # Extract reviews
-    review_elements = driver.find_elements(By.CSS_SELECTOR, 'div.jftiEf')
-    print("Found review blocks:", len(review_elements))
+        old_count = new_count
+
+
+    # ----------------------------------
+    # 5. EXTRACT REVIEWS
+    # ----------------------------------
+    print("Extracting reviews...")
+
+    review_blocks = driver.find_elements(By.CLASS_NAME, "jJc9Ad")
+    print("Found reviews:", len(review_blocks))
+    # print('review block:',review_blocks.text)
 
     reviews = []
-    for r in review_elements:
-        author = rating = text = date = None
 
+    for r in review_blocks:
+            # author
         try:
-            author = r.find_element(By.CSS_SELECTOR, "span.X43Kjb").text
-        except: pass
+            author = r.find_element(By.CSS_SELECTOR, "div.d4r55").text
+        except:
+            author = None
+
+        # rating
         try:
-            rating = r.find_element(By.CSS_SELECTOR, "span.kvMYJc").get_attribute("aria-label")
-        except: pass
+            rating = r.find_element(By.CSS_SELECTOR, "span[aria-label*='star']").get_attribute("aria-label")
+        except:
+            rating = None
+
+        # text
         try:
             text = r.find_element(By.CSS_SELECTOR, "span.wiI7pd").text
-        except: pass
-        try:
-            date = r.find_element(By.CSS_SELECTOR, "span.duhH3b").text
-        except: pass
+        except:
+            text = None
 
-        if author or rating or text:
-            reviews.append({
-                "author": author,
-                "rating": rating,
-                "text": text,
-                "date": date
-            })
+        # date
+        try:
+            date_raw = r.find_element(By.CLASS_NAME, "rsqaWe").text
+        except:
+            date_raw = None
+
+        date_parsed = convert_relative_date(date_raw)
+
+
+        reviews.append({
+            "author": author,
+            "rating": rating,
+            "text": text,
+            "date_raw": date_raw,
+            "date": str(date_parsed) if date_parsed else None
+        })
 
     driver.quit()
     return reviews
 
-url = "https://www.google.com/maps/place/Siri's+Dine+Inn/@18.0104206,79.5498378,16z/data=!4m12!1m2!2m1!1sRestaurants!3m8!1s0x3a334fb3a0490f7d:0xd80c1922d06341af!8m2!3d18.010686!4d79.5591736!9m1!1b1!15sCgtSZXN0YXVyYW50c1oNIgtyZXN0YXVyYW50c5IBEWZhbWlseV9yZXN0YXVyYW50qgFEEAEqDyILcmVzdGF1cmFudHMoADIeEAEiGuInnWVrUEwRITwVosFBOxis3ebJVx8poGpoMg8QAiILcmVzdGF1cmFudHPgAQA!16s%2Fg%2F11v68dv3ww?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D"  # put your "See All Reviews" link
-reviews = scrape_google_reviews(url)
-print(reviews)  # output 
+
+# ------------------------------------------
+# Example usage
+# ------------------------------------------
+
+url = "https://maps.app.goo.gl/EQaGq6jrXpSL5gjP8"
+data = scrape_google_reviews(url)
+
+for r in data:
+    print(r)
