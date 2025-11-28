@@ -1,2 +1,6 @@
 .venv
 .gitignore
+__pycache__/
+.idea
+/ai_engine/pipeline.ipynb
+/ai_engine/dummy_reviews.csv
