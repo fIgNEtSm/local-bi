@@ -2,14 +2,17 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options
+from swiftshadow import QuickProxy
 import time
 import random
 import datetime
 import re
 
-# --------------------------
-# Helpers
-# --------------------------
+class ProxyInput:
+    def __init__(self, ip, protocol, port):
+        self.ip = ip
+        self.protocol = protocol
+        self.port = port
 
 def wait(a=1.0, b=2.0):
     time.sleep(random.uniform(a, b))
@@ -50,7 +53,23 @@ def convert_relative_date(raw):
 # --------------------------
 
 def scrape_google_reviews(url, max_scrolls=2):
+    # The variable you have:
+    my_proxy_data = QuickProxy()
+    # 2. Extract data from that specific object structure
+    PROXY_IP = my_proxy_data.ip
+    PROXY_PORT = my_proxy_data.port # Already an integer
 
+    options = Options()
+
+    # 3. Use the extracted data to set Firefox internal preferences
+    options.set_preference("network.proxy.type", 1) # Manual proxy settings
+
+    # We use the same IP/Port for both HTTP and SSL (HTTPS) traffic
+    options.set_preference("network.proxy.http", PROXY_IP)
+    options.set_preference("network.proxy.http_port", PROXY_PORT)
+    options.set_preference("network.proxy.ssl", PROXY_IP)
+    options.set_preference("network.proxy.ssl_port", PROXY_PORT)
+    options.set_preference("network.proxy.no_proxies_on", "")
     opts = Options()
     opts.add_argument("--headless")
     driver = webdriver.Firefox(options=opts)
