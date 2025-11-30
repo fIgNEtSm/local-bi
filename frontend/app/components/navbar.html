@@ -1,0 +1,77 @@
+<nav class="top-nav">
+  <div class="nav-container">
+    <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <div class="nav-brand">
+      <h2><a href="../html/index.html" style="text-decoration: none; color: inherit;">LocalBiz AI</a></h2>
+    </div>
+    
+    <div class="profile-menu" id="profileMenu">
+      <button class="profile-trigger" id="profileTrigger" aria-label="Profile menu">
+        <div class="profile-avatar">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+          </svg>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="dropdown-arrow">
+          <path d="M4.427 9.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 9H4.604a.25.25 0 00-.177.427z"/>
+        </svg>
+      </button>
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-dropdown-header">
+          <div class="profile-avatar-large">
+            <svg width="32" height="32" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="profile-name">John Doe</p>
+            <p class="profile-email">john.doe@example.com</p>
+          </div>
+        </div>
+        <div class="profile-dropdown-divider"></div>
+            <a href="../html/index.html" class="dropdown-item">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+              </svg>
+              Home
+            </a>
+        <a href="#" class="dropdown-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.75.75h2.5a.75.75 0 000-1.5H8.5V4.75z"/>
+          </svg>
+          Settings
+        </a>
+        <div class="dropdown-item theme-toggle">
+          <div class="theme-toggle-copy">
+            <p>Theme</p>
+            <span id="themeToggleLabel">Dark</span>
+          </div>
+          <label class="theme-switch" aria-label="Toggle color theme">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <a href="#" class="dropdown-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM3 8a5 5 0 1110 0A5 5 0 013 8zm6-4.5V9h2.5a.5.5 0 010 1h-6a.5.5 0 01-.5-.5v-6a.5.5 0 011 0z"/>
+          </svg>
+          Help
+        </a>
+        <div class="profile-dropdown-divider"></div>
+            <a href="../html/login.html" class="dropdown-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 01-.5.5h-8a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h8a.5.5 0 01.5.5v2a.5.5 0 001 0v-2A1.5 1.5 0 009.5 2h-8A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h8a1.5 1.5 0 001.5-1.5v-2a.5.5 0 00-1 0v2z"/>
+            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 000-.708l-3-3a.5.5 0 00-.708.708L14.293 7.5H5.5a.5.5 0 000 1h8.793l-2.147 2.146a.5.5 0 00.708.708l3-3z"/>
+          </svg>
+          Sign out
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
