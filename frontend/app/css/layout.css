@@ -414,8 +414,9 @@ body.theme-light .export-icon-btn:hover {
   padding: 0 1.5rem 3rem;
   display: flex;
   justify-content: center;
-  padding-top: calc(60px + 3rem);
+  padding-top: 50px; /* Cleaner, minimal spacing */
 }
+
 
 .dashboard-shell {
   width: 100%;

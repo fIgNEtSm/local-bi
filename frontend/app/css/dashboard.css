@@ -1,10 +1,10 @@
+/* Fix unwanted space in Business page header */
+.business-input-section .dashboard-header,
 .dashboard-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  gap: 0 !important;
+  justify-content: flex-start !important;
 }
 
 .eyebrow {
@@ -212,6 +212,34 @@ h1 {
   letter-spacing: 0.01em;
   line-height: 1.5;
 }
+/* the css for strength and weakness grid  */
+.strength-weakness-grid {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch;   
+}
+
+.strengths,
+.weaknesses {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* the css for praises and complaints grid */
+.praises-complaints-grid {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch; 
+}
+
+.praises-box,
+.complaints-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .keyword-cloud {
   display: flex;
@@ -333,22 +361,53 @@ h1 {
 
 .strength-weakness-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.875rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
   position: relative;
-  align-items: start;
 }
 
 .strengths,
 .weaknesses {
   padding: 1.25rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(248, 250, 252, 0.06);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(248, 250, 252, 0.04);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  min-height: auto;
+}
+
+.strengths::before,
+.weaknesses::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.strengths::before {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.weaknesses::before {
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.15) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+.strengths:hover,
+.weaknesses:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(248, 250, 252, 0.12);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5);
+}
+
+.strengths:hover::before,
+.weaknesses:hover::before {
+  opacity: 1;
 }
 
 .strengths {
@@ -361,16 +420,19 @@ h1 {
   border-left: 3px solid rgba(248, 113, 113, 0.5);
 }
 
-.strengths:hover,
+.strengths:hover {
+  border-left-color: rgba(52, 211, 153, 0.8);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5), 0 0 20px rgba(52, 211, 153, 0.2);
+}
+
 .weaknesses:hover {
-  transform: translateY(-2px) scale(1.01);
-  border-color: rgba(248, 250, 252, 0.12);
-  box-shadow: 0 8px 16px rgba(2, 6, 23, 0.4);
+  border-left-color: rgba(248, 113, 113, 0.8);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5), 0 0 20px rgba(248, 113, 113, 0.2);
 }
 
 .title {
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   font-size: 0.75rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
@@ -389,22 +451,163 @@ h1 {
 .strengths ul,
 .weaknesses ul {
   margin: 0;
-  padding-left: 1.25rem;
+  padding-left: 1rem;
   color: rgba(226, 232, 240, 0.9);
-  line-height: 1.7;
+  line-height: 1.8;
   position: relative;
-  font-size: 0.9375rem;
 }
 
 .strengths ul li,
 .weaknesses ul li {
-  margin-bottom: 0.625rem;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+  position: relative;
 }
 
-.strengths ul li:last-child,
-.weaknesses ul li:last-child {
-  margin-bottom: 0;
+.strengths ul li::marker,
+.weaknesses ul li::marker {
+  color: var(--slate-400);
 }
+
+.strengths:hover ul li,
+.weaknesses:hover ul li {
+  color: rgba(248, 250, 252, 0.95);
+}
+
+.strengths:hover ul li::marker {
+  color: var(--emerald-300);
+}
+
+.weaknesses:hover ul li::marker {
+  color: var(--rose-300);
+}
+
+/* the css for praises and complaints grid */
+
+.Praises-Complaints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  position: relative;
+}
+
+.Praises,
+.Complaints {
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(248, 250, 252, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.Praises::before,
+.Complaints::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.Praises::before {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.Complaints::before {
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.15) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+.Praises:hover,
+.Complaints:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(248, 250, 252, 0.12);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5);
+}
+
+.Praises:hover::before,
+.Complaints:hover::before {
+  opacity: 1;
+}
+
+.Praises {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.25) 0%, rgba(5, 150, 105, 0.15) 100%);
+  border-left: 3px solid rgba(52, 211, 153, 0.5);
+}
+
+.Complaints {
+  background: linear-gradient(135deg, rgba(190, 18, 60, 0.2) 0%, rgba(220, 38, 38, 0.15) 100%);
+  border-left: 3px solid rgba(248, 113, 113, 0.5);
+}
+
+.Praises:hover {
+  border-left-color: rgba(52, 211, 153, 0.8);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5), 0 0 20px rgba(52, 211, 153, 0.2);
+}
+
+.Complaints:hover {
+  border-left-color: rgba(248, 113, 113, 0.8);
+  box-shadow: 0 12px 24px rgba(2, 6, 23, 0.5), 0 0 20px rgba(248, 113, 113, 0.2);
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.Praises .title {
+  color: var(--emerald-300);
+}
+
+.Complaints .title {
+  color: var(--rose-300);
+}
+
+.Praises ul,
+.Complaints ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: rgba(226, 232, 240, 0.9);
+  line-height: 1.8;
+  position: relative;
+}
+
+.Praises ul li,
+.Complaints ul li {
+  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.Praises ul li::marker,
+.Complaints ul li::marker {
+  color: var(--slate-400);
+}
+
+.Praises:hover ul li,
+.Complaints:hover ul li {
+  color: rgba(248, 250, 252, 0.95);
+}
+
+.Praises:hover ul li::marker {
+  color: var(--emerald-300);
+}
+
+.Complaints:hover ul li::marker {
+  color: var(--rose-300);
+}
+
+
 
 .competitor-table table {
   width: 100%;
@@ -934,4 +1137,11 @@ body.theme-light .topic-value {
     border-radius: 1.25rem;
   }
 }
+
+
+
+
+
+
+
 
